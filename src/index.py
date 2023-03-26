@@ -58,7 +58,7 @@ from sanic.response import json, HTTPException
 
  
  
-@app.route('/')
+@app.get('/')
 async def index(request):
     return 'hello'
 
