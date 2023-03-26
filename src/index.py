@@ -1,26 +1,3 @@
-'''
-from fastapi import FastAPI
-
-
-app = FastAPI()
-
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
-
-
-
-
-
-'''
-from fastapi import FastAPI, Request, HTTPException
-
 from linebot import LineBotApi, WebhookHandler
 
 from linebot.exceptions import InvalidSignatureError
@@ -29,7 +6,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 
 
-app = FastAPI()
+app = Sanic()
 ################################################################
 import openai, os
 	
@@ -76,15 +53,13 @@ class ChatGPT:
 chatgpt = ChatGPT()
 
 
-# Line Bot config
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+from sanic import Sanic
+from sanic.response import json
 
+ 
+ 
+@app.route('/')
 
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
 
 
 @app.post("/callback")
