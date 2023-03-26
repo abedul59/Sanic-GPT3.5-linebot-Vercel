@@ -54,13 +54,14 @@ chatgpt = ChatGPT()
 
 
 from sanic import Sanic
-from sanic.response import json, HTTPException
+from sanic.response import json
 
  
  
+
 @app.get('/')
-async def index(request):
-    return 'hello'
+async def handler(request):
+    return text('OK')
 
 
 @app.post("/callback")
@@ -70,7 +71,7 @@ async def callback(request):
     try:
         handler.handle(body.decode(), signature)
     except InvalidSignatureError:
-        raise HTTPException(status_code=400, detail="Missing Parameters")
+        pass
     return "OK"
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -93,6 +94,6 @@ def handling_message(event):
     #app.run()
     #app.run(host='0.0.0.0', port=1337, access_log=False)
 if __name__ == '__main__':
-	    app.run(host="0.0.0.0", port=8006)
+	    app.run(host="0.0.0.0")
  
  
