@@ -54,16 +54,18 @@ chatgpt = ChatGPT()
 
 
 from sanic import Sanic
-from sanic.response import json
+from sanic.response import json, HTTPException
 
  
  
 @app.route('/')
-
+@app.route('/<path:path>')
+async def index(request, path=""):
+    return json({'hello': path})
 
 
 @app.post("/callback")
-async def callback(request: Request):
+async def callback(request):
     signature = request.headers["X-Line-Signature"]
     body = await request.body()
     try:
@@ -88,3 +90,8 @@ def handling_message(event):
 
 
 
+if __name__ == "__main__":
+    app.run()
+    #app.run(host='0.0.0.0', port=1337, access_log=False)
+ 
+ 
