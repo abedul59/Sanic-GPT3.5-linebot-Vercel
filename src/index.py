@@ -52,26 +52,26 @@ class ChatGPT:
 
 chatgpt = ChatGPT()
 
-from sanic import Sanic, request
+from sanic import Sanic, Request, response, HTTPResponse
 from sanic.response import json
 
  
  
 
 @app.get('/')
-async def handler(request):
-    return text('OK')
+async def handler(request: Request) -> HTTPResponse:
+    return response.text("Done")
 
 
 @app.post("/callback")
-async def callback(request):
+async def callback(request: Request) -> HTTPResponse:
     signature = request.headers["X-Line-Signature"]
     body = await request.body()
     try:
         handler.handle(body.decode(), signature)
     except InvalidSignatureError:
         pass
-    return "OK"
+    return response.text("OK")
 
 @handler.add(MessageEvent, message=TextMessage)
 def handling_message(event):
