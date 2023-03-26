@@ -52,8 +52,7 @@ class ChatGPT:
 
 chatgpt = ChatGPT()
 
-
-from sanic import Sanic
+from sanic import Sanic, request
 from sanic.response import json
 
  
