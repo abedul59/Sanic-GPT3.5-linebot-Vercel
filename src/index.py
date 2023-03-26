@@ -59,13 +59,12 @@ from sanic.response import json, HTTPException
  
  
 @app.route('/')
-@app.route('/<path:path>')
-async def index(request, path=""):
-    return json({'hello': path})
+async def index(request):
+    return 'hello'
 
 
 @app.post("/callback")
-async def callback(request, path=""):
+async def callback(request):
     signature = request.headers["X-Line-Signature"]
     body = await request.body()
     try:
