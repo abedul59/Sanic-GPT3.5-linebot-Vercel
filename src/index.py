@@ -65,7 +65,7 @@ async def index(request, path=""):
 
 
 @app.post("/callback")
-async def callback(request):
+async def callback(request, path=""):
     signature = request.headers["X-Line-Signature"]
     body = await request.body()
     try:
@@ -90,8 +90,10 @@ def handling_message(event):
 
 
 
-if __name__ == "__main__":
-    app.run()
+#if __name__ == "__main__":
+    #app.run()
     #app.run(host='0.0.0.0', port=1337, access_log=False)
+if __name__ == '__main__':
+	    app.run(host="0.0.0.0", port=8006)
  
  
